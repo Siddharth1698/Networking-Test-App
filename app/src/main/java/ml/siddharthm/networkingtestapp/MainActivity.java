@@ -24,11 +24,14 @@ public class MainActivity extends AppCompatActivity {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/").build();
         Api api = retrofit.create(Api.class);
 
-      api.getPostByUserId(1).enqueue(new Callback<ResponseBody>() {
+      int UserId = 1;
+      int PostId = 2;
+
+      api.getPostByUserIdAndPostId(UserId,PostId).enqueue(new Callback<ResponseBody>() {
           @Override
           public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
               try {
-                  Log.d("Retro",response.body().string());
+                  Log.d("retro",response.body().string());
               } catch (IOException e) {
                   e.printStackTrace();
               }
@@ -39,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
           }
       });
-
 
 
     }

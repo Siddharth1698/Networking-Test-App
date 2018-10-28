@@ -21,4 +21,7 @@ public interface Api {
 
  @GET("/posts")
     Call<ResponseBody> getPostByUserId(@Query("userId") int userId);
+
+ @GET("/posts")
+    Call<ResponseBody> getPostByUserIdAndPostId(@Query("userId") int userId,@Query("id") int postId);
 }
