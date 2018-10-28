@@ -1,5 +1,7 @@
 package ml.siddharthm.networkingtestapp;
 
+import java.util.List;
+
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -24,4 +26,7 @@ public interface Api {
 
  @GET("/posts")
     Call<ResponseBody> getPostByUserIdAndPostId(@Query("userId") int userId,@Query("id") int postId);
+
+ @GET("/posts")
+    Call<ResponseBody> getPostById(@Query("id") List<Integer> ids);
 }
