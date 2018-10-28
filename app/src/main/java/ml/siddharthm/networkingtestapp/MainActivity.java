@@ -24,27 +24,21 @@ public class MainActivity extends AppCompatActivity {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/").build();
         Api api = retrofit.create(Api.class);
 
-        String json = "{\n" +
-                "\t\"id\": 11\n" +
-                "}";
+      api.getPostByUserId(1).enqueue(new Callback<ResponseBody>() {
+          @Override
+          public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+              try {
+                  Log.d("Retro",response.body().string());
+              } catch (IOException e) {
+                  e.printStackTrace();
+              }
+          }
 
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"),json);
+          @Override
+          public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-        api.postUser(requestBody).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    Log.d("Retrofit Post",response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
+          }
+      });
 
 
 

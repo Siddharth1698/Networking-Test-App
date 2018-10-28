@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface Api {
 
@@ -17,4 +18,7 @@ public interface Api {
 
  @POST("/users")
     Call<ResponseBody> postUser(@Body RequestBody requestBody);
+
+ @GET("/posts")
+    Call<ResponseBody> getPostByUserId(@Query("userId") int userId);
 }
