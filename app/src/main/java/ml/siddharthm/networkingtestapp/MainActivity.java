@@ -6,7 +6,9 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -25,26 +27,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/").build();
         Api api = retrofit.create(Api.class);
-        List<Integer> ids = new ArrayList<>();
-        ids.add(1);
-        ids.add(2);
-        ids.add(3);
 
-        api.getPostById(ids).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    Log.d("RETRO",response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+        Map<String,String> params = new HashMap<>();
+        params.put("userId","1");
+        params.put("id","2");
+         api.getPById(1).enqueue(new Callback<ResponseBody>() {
+             @Override
+             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                 try {
+                     Log.d("retro",response.body().string());
+                 } catch (IOException e) {
+                     e.printStackTrace();
+                 }
+             }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+             @Override
+             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-            }
-        });
+             }
+         });
+
 
     }
 
