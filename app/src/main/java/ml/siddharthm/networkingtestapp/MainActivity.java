@@ -19,9 +19,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.ipify.org/").build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/").build();
         Api api = retrofit.create(Api.class);
-        api.getIp().enqueue(new Callback<ResponseBody>() {
+        api.getPosts().enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
@@ -37,9 +37,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    interface Api{
 
-        @GET("/")
-        Call<ResponseBody> getIp();
-    }
 }
