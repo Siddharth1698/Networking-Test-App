@@ -6,6 +6,8 @@ import android.util.Log;
 
 import java.io.IOException;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,11 +23,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/").build();
         Api api = retrofit.create(Api.class);
-        api.getPosts().enqueue(new Callback<ResponseBody>() {
+
+        String json = "{\n" +
+                "\t\"id\": 11\n" +
+                "}";
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"),json);
+
+        api.postUser(requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    Log.i("Retrofit test app",response.body().string());
+                    Log.d("Retrofit Post",response.body().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -36,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+
     }
 
 }
