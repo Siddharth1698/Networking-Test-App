@@ -9,6 +9,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -45,6 +46,10 @@ public interface Api {
  @Multipart
     @POST
     Call<ResponseBody> uploadFile(@Url String url, @Part MultipartBody.Part part);
+
+ @Headers({"Content-Type: application/json","User-Agent: RetrofitExample"})
+    @GET("http://httpbin.org/get")
+    Call<ResponseBody> sendRequestWithHeaders();
 
 
 }

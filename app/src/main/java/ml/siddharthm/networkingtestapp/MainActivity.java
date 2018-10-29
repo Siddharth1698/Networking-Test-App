@@ -32,34 +32,21 @@ public class MainActivity extends AppCompatActivity {
         Api api = retrofit.create(Api.class);
 
 
-        try {
-            File file = new File(getCacheDir(),"hello.txt");
-            FileWriter writer = new FileWriter(file);
-            writer.append("hello");
-            writer.flush();
-            writer.close();
-
-            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
-
-            api.uploadFile("https://file.io/", part).enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        Log.d("RetrofitTag", response.body().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        api.sendRequestWithHeaders().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    Log.d("retrofitExample",response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+            }
 
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            }
+        });
 
 
     }
